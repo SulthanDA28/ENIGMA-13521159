@@ -1,8 +1,10 @@
+import copy
 def nextrotor(rotor):
     ambil1 = rotor[0].pop(0)
     rotor[0].append(ambil1)
     ambil2 = rotor[1].pop(0)
     rotor[1].append(ambil2)
+
 def gethuruf(huruf,list):
     for i in range(len(list)):
         if(list[i] == huruf):
@@ -73,6 +75,13 @@ def enigma_plugin(huruf,plugin,listhuruf,rotor1,rotor2,rotor3,reflector):
                 hasilakhir = ubahplugin[i][0]
                 break
         return hasilakhir, r11, r21, r31, rf, r32, r22, r12,pluginawal
+
+
+
+
+
+
+    
                 
 
 

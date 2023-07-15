@@ -14,12 +14,19 @@ allhuruf = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
 hurufrotor1 = "A"
 hurufrotor2 = "A"
 hurufrotor3 = "A"
+notch1 = "Q"
+notch2 = "E"
+notch3 = "V"
 listallhuruf = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-rotor1all = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
-rotor2all = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
-rotor3all = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+rotor1all = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")] #Left
+rotor2all = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")] #Middle
+rotor3all = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")] #Right
 reflector = [list("YRUHQSLDPXNGOKMIEBFZCWVJAT"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
 window.configure(bg="#33FF99", padx=10, pady=10, relief="groove", borderwidth=5, cursor="arrow")
+
+
+
+        
 
 
 def inputketext():
@@ -31,6 +38,45 @@ def inputketext():
     global hurufrotor3
     global reflector
     global listallhuruf
+    global notch1
+    global notch2
+    global notch3
+    if(menurotorleft.get()=="I"):
+        rotor1all = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+        notch1 = "Q"
+        hurufrotor1 = "A"
+    elif(menurotorleft.get()=="II"):
+        rotor1all = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+        notch1 = "E"
+        hurufrotor1 = "A"
+    elif(menurotorleft.get()=="III"):
+        rotor1all = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+        notch1 = "V"
+        hurufrotor1 = "A"
+    if(menurotormiddle.get()=="I"):
+        rotor2all = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+        notch2 = "Q"
+        hurufrotor2 = "A"
+    elif(menurotormiddle.get()=="II"):
+        rotor2all = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+        notch2 = "E"
+        hurufrotor2 = "A"
+    elif(menurotormiddle.get()=="III"):
+        rotor2all = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+        notch2 = "V"
+        hurufrotor2 = "A"
+    if(menurotorright.get()=="I"):
+        rotor3all = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+        notch3 = "Q"
+        hurufrotor3 = "A"
+    elif(menurotorright.get()=="II"):
+        rotor3all = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+        notch3 = "E"
+        hurufrotor3 = "A"
+    elif(menurotorright.get()=="III"):
+        rotor3all = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+        notch3 = "V"
+        hurufrotor3 = "A"
     rincian = ""
     hasil = ""
     getinput = input1.get().upper()
@@ -66,15 +112,15 @@ def inputketext():
                 hasil += " "
                 continue
             else:
-                if(rotor2all[1][0]=="E" and rotor3all[1][0]=="V"):
+                if(rotor2all[1][0]==notch2 and rotor3all[1][0]==notch3):
                     enigma.nextrotor(rotor3all)
                     enigma.nextrotor(rotor2all)
                     enigma.nextrotor(rotor1all)
-                elif(rotor2all[1][0]=="E"):
+                elif(rotor2all[1][0]==notch2):
                     enigma.nextrotor(rotor3all)
                     enigma.nextrotor(rotor2all)
                     enigma.nextrotor(rotor1all)
-                elif(rotor3all[1][0]=="V"):
+                elif(rotor3all[1][0]==notch3):
                     enigma.nextrotor(rotor2all)
                     enigma.nextrotor(rotor3all)
                 else:
@@ -108,7 +154,6 @@ def inputketext():
         huruf2.set(hurufrotor2)
         huruf3.set(hurufrotor3)
     else:
-        print("enigma dengan plugin")
         if(huruf1.get()!=hurufrotor1):
             while(True):
                 if(rotor1all[1][0]!=huruf1.get()):
@@ -133,15 +178,15 @@ def inputketext():
                 hasil += " "
                 continue
             else:
-                if(rotor2all[1][0]=="E" and rotor3all[1][0]=="V"):
+                if(rotor2all[1][0]==notch2 and rotor3all[1][0]==notch3):
                     enigma.nextrotor(rotor3all)
                     enigma.nextrotor(rotor2all)
                     enigma.nextrotor(rotor1all)
-                elif(rotor2all[1][0]=="E"):
+                elif(rotor2all[1][0]==notch2):
                     enigma.nextrotor(rotor3all)
                     enigma.nextrotor(rotor2all)
                     enigma.nextrotor(rotor1all)
-                elif(rotor3all[1][0]=="V"):
+                elif(rotor3all[1][0]==notch3):
                     enigma.nextrotor(rotor2all)
                     enigma.nextrotor(rotor3all)
                 else:
@@ -186,16 +231,19 @@ def inputketext():
 
 
 label1 = tk.Label(window, text="Input", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
-label1.grid(row=0, column=0)
+label1.grid(row=0, column=0,)
 input1 = tk.Entry(window, width=60, borderwidth=5, bg="white", fg="black", font=("Arial", 10))
-input1.grid(row=0, column=1)
+input1.grid(row=0, column=1,columnspan=2)
 label2 = tk.Label(window, text="Plugin", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
 label2.grid(row=1, column=0)
 plugin1 = tk.Entry(window, width=60, borderwidth=5, bg="white", fg="black", font=("Arial", 10))
-plugin1.grid(row=1, column=1)
+plugin1.grid(row=1, column=1,columnspan=2)
 
 encripdecripbut = tk.Button(window, text="Enkripsi/Dekripsi", padx=10, pady=5, command=inputketext, bg="green", fg="white", font=("Arial", 10))
 encripdecripbut.grid(row=2, column=1)
+
+# alanturingbut = tk.Button(window, text="Alan Turing", padx=10, pady=5, bg="green", fg="white", font=("Arial", 10), command=alanturing)
+# alanturingbut.grid(row=2, column=2)
 
 
 label3 = tk.Label(window, text="Input:", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
@@ -213,27 +261,49 @@ labelframe.grid(row=0, column=3, rowspan=8, padx=10, pady=10)
 textrincian = tk.Text(labelframe, height=30, width=60, state="disabled", bg="white", fg="black", font=("Arial", 10))
 textrincian.grid(row=0, column=3, rowspan=8, padx=10, pady=10)
 
-label5 = tk.Label(window, text="Rotor 1", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
+label5 = tk.Label(window, text="Left", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
 label5.grid(row=6, column=0)
+
+menurotor = ["I","II","III"]
+
+#menu rotor left
+menurotorleft = tk.StringVar()
+menurotorleft.set("I")
+rotorleft = tk.OptionMenu(window, menurotorleft, *menurotor)
+rotorleft.grid(row=7, column=0)
+
 huruf1 = tk.StringVar()
 huruf1.set("A")
 rotor1 = tk.OptionMenu(window, huruf1, *allhuruf)
-rotor1.grid(row=7, column=0)
+rotor1.grid(row=8, column=0)
 
 
-label6 = tk.Label(window, text="Rotor 2", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
+label6 = tk.Label(window, text="Middle", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
 label6.grid(row=6, column=1)
+
+menurotormiddle = tk.StringVar()
+menurotormiddle.set("II")
+rotormiddle = tk.OptionMenu(window, menurotormiddle, *menurotor)
+rotormiddle.grid(row=7, column=1)
+
 huruf2 = tk.StringVar()
 huruf2.set("A")
 rotor2 = tk.OptionMenu(window, huruf2, *allhuruf)
-rotor2.grid(row=7, column=1)
+rotor2.grid(row=8, column=1)
 
-label7 = tk.Label(window, text="Rotor 3", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
+label7 = tk.Label(window, text="Right", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
 label7.grid(row=6, column=2)
+
+menurotorright = tk.StringVar()
+menurotorright.set("III")
+rotorright = tk.OptionMenu(window, menurotorright, *menurotor)
+rotorright.grid(row=7, column=2)
+
+
 huruf3 = tk.StringVar()
 huruf3.set("A")
 rotor3 = tk.OptionMenu(window, huruf3, *allhuruf)
-rotor3.grid(row=7, column=2)
+rotor3.grid(row=8, column=2)
 
 
 window.mainloop()
