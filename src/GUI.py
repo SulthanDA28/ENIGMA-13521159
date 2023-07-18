@@ -1,13 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
-from tkinter import ttk
-from tkinter import filedialog
-from matplotlib.figure import Figure
-
-import matplotlib.pyplot as plt
-from PIL import ImageTk, Image as Img
-import os
 import enigma
+
 window = tk.Tk()
 window.title("ENIGMA")
 allhuruf = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
@@ -26,6 +20,132 @@ window.configure(bg="#33FF99", padx=10, pady=10, relief="groove", borderwidth=5,
 
 
 
+def alan_turing():
+    global rotor1all
+    global rotor2all
+    global rotor3all
+    global hurufrotor1
+    global hurufrotor2
+    global hurufrotor3
+    global reflector
+    global listallhuruf
+    global notch1
+    global notch2
+    global notch3
+    getinput = input1.get().upper()
+    inputtext.config(state="normal")
+    inputtext.delete("1.0", tk.END)
+    inputtext.insert(tk.END, getinput + "\n")
+    inputtext.config(state="disabled")
+    hasilalan = enigma.alan_turing(getinput)
+    hasil = ""
+    rincian = "Initial Position: " + hasilalan[0][0] + "\n"
+    rincian += "Rotor Left: " + hasilalan[0][1] + "\n"
+    rincian += "Rotor Middle: " + hasilalan[0][2] + "\n"
+    rincian += "Rotor Right: " + hasilalan[0][3] + "\n \n"
+    if(hasilalan=="Error"):
+        messagebox.showerror("Error", "Input tidak valid")
+    else:
+        if(hasilalan[0][1]=="1"):
+            rotor1all = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+            notch1 = "Q"
+            hurufrotor1 = "A"
+        elif(hasilalan[0][1]=="2"):
+            rotor1all = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+            notch1 = "E"
+            hurufrotor1 = "A"
+        elif(hasilalan[0][1]=="3"):
+            rotor1all = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+            notch1 = "V"
+            hurufrotor1 = "A"
+        if(hasilalan[0][2]=="1"):
+            rotor2all = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+            notch2 = "Q"
+            hurufrotor2 = "A"
+        elif(hasilalan[0][2]=="2"):
+            rotor2all = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+            notch2 = "E"
+            hurufrotor2 = "A"
+        elif(hasilalan[0][2]=="3"):
+            rotor2all = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+            notch2 = "V"
+            hurufrotor2 = "A"
+        if(hasilalan[0][3]=="1"):
+            rotor3all = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+            notch3 = "Q"
+            hurufrotor3 = "A"
+        elif(hasilalan[0][3]=="2"):
+            rotor3all = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+            notch3 = "E"
+            hurufrotor3 = "A"
+        elif(hasilalan[0][3]=="3"):
+            rotor3all = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"),list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+            notch3 = "V"
+            hurufrotor3 = "A"
+        if(hasilalan[0][0][0]!=hurufrotor1):
+            while(True):
+                if(rotor1all[1][0]!=hasilalan[0][0][0]):
+                    enigma.nextrotor(rotor1all)
+                else:
+                    break
+        if(hasilalan[0][0][1]!=hurufrotor2):
+            while(True):
+                if(rotor2all[1][0]!=hasilalan[0][0][1]):
+                    enigma.nextrotor(rotor2all)
+                else:
+                    break
+        if(hasilalan[0][0][2]!=hurufrotor3):
+            while(True):
+                if(rotor3all[1][0]!=hasilalan[0][0][2]):
+                    enigma.nextrotor(rotor3all)
+                else:
+                    break
+        for i in range(len(getinput)):
+            if(getinput[i] == " "):
+                hasil += " "
+                continue
+            else:
+                if(rotor2all[1][0]==notch2 and rotor3all[1][0]==notch3):
+                    enigma.nextrotor(rotor3all)
+                    enigma.nextrotor(rotor2all)
+                    enigma.nextrotor(rotor1all)
+                elif(rotor2all[1][0]==notch2):
+                    enigma.nextrotor(rotor3all)
+                    enigma.nextrotor(rotor2all)
+                    enigma.nextrotor(rotor1all)
+                elif(rotor3all[1][0]==notch3):
+                    enigma.nextrotor(rotor2all)
+                    enigma.nextrotor(rotor3all)
+                else:
+                    enigma.nextrotor(rotor3all)
+                hasilenigma,r11,r21,r31,ref,r32,r22,r12 = enigma.enigma(getinput[i],listallhuruf,rotor3all,rotor2all,rotor1all,reflector)
+                hasil += hasilenigma
+                rincian += "Huruf input: " + getinput[i] + "\n"
+                rincian += "Current Rotor Position: " + rotor1all[1][0] + rotor2all[1][0] + rotor3all[1][0] + "\n"
+                rincian += "Rotor 3: " + r11 + "\n"
+                rincian += "Rotor 2: " + r21 + "\n"
+                rincian += "Rotor 1: " + r31 + "\n"
+                rincian += "Reflector: " + ref + "\n"
+                rincian += "Rotor 1: " + r32 + "\n"
+                rincian += "Rotor 2: " + r22 + "\n"
+                rincian += "Rotor 3: " + r12 + "\n"
+                rincian += "Huruf output: " + hasilenigma + "\n"
+                rincian += "\n"
+        outputtext.config(state="normal")
+        outputtext.delete("1.0", tk.END)
+        outputtext.insert(tk.END, hasil + "\n")
+        outputtext.config(state="disabled")
+        hurufrotor1  = rotor1all[1][0]
+        hurufrotor2  = rotor2all[1][0]
+        hurufrotor3  = rotor3all[1][0]
+        huruf1.set(hurufrotor1)
+        huruf2.set(hurufrotor2)
+        huruf3.set(hurufrotor3)
+        textrincian.config(state="normal")
+        textrincian.delete("1.0", tk.END)
+        textrincian.insert(tk.END, rincian + "\n")
+        textrincian.config(state="disabled")
+        
         
 
 
@@ -242,7 +362,7 @@ plugin1.grid(row=1, column=1,columnspan=2)
 encripdecripbut = tk.Button(window, text="Enkripsi/Dekripsi", padx=10, pady=5, command=inputketext, bg="green", fg="white", font=("Arial", 10))
 encripdecripbut.grid(row=2, column=1)
 
-# alanturingbut = tk.Button(window, text="Alan Turing", padx=10, pady=5, bg="green", fg="white", font=("Arial", 10), command=alanturing)
+# alanturingbut = tk.Button(window, text="Alan Turing", padx=10, pady=5, bg="green", fg="white", font=("Arial", 10), command=alan_turing)
 # alanturingbut.grid(row=2, column=2)
 
 
