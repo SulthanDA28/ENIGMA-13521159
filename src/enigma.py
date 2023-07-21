@@ -205,7 +205,7 @@ def alan_turing_plugin(teks):
     for i in range(3):
         for j in range(3):
             for k in range(3):
-                if(i==j or i==k or j==k):
+                if(i!=2 or j!=2 or k!=2):
                     continue
                 jml+=1
                 if(i==0):
@@ -290,6 +290,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil1+teks[m]+" "
+                                                huruflarang+=teks[m]+hasil1
                                     else:
                                         hasil1, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
                                         if(hasil1=="E"):
@@ -301,6 +302,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil1+"E"+" "
+                                                huruflarang+="E"+hasil1
                                 elif(m==2):
                                     if("L" in plugin):
                                         hasil2, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("L",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
@@ -313,6 +315,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil2+teks[m]+" "
+                                                huruflarang+=teks[m]+hasil2
                                     else:
                                         hasil2, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
                                         if(hasil2=="L"):
@@ -324,6 +327,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil2+"L"+" "
+                                                huruflarang+="L"+hasil2
                                 elif(m==3):
                                     if("L" in plugin):
                                         hasil3, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("L",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
@@ -336,6 +340,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil3+teks[m]+" "
+                                                huruflarang+=teks[m]+hasil3
                                     else:
                                         hasil3, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
                                         if(hasil3=="L"):
@@ -347,6 +352,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil3+"L"+" "
+                                                huruflarang+="L"+hasil3
                                 elif(m==4):
                                     if("O" in plugin):
                                         hasil4, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("O",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
@@ -359,6 +365,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil4+teks[m]+" "
+                                                huruflarang+=teks[m]+hasil4
                                     else:
                                         hasil4, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
                                         if(hasil4=="O"):
@@ -370,6 +377,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil4+"O"+" "
+                                                huruflarang+="O"+hasil4
                                 elif(m==6):
                                     if("S" in plugin):
                                         hasil6, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("S",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
@@ -382,6 +390,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil6+teks[m]+" "
+                                                huruflarang+=teks[m]+hasil6
                                     else:
                                         hasil6, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
                                         if(hasil6=="S"):
@@ -393,6 +402,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil6+"S"+" "
+                                                huruflarang+="S"+hasil6
                                 elif(m==7):
                                     if("U" in plugin):
                                         hasil7, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("U",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
@@ -405,6 +415,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil7+teks[m]+" "
+                                                huruflarang+=teks[m]+hasil7
                                     else:
                                         hasil7, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
                                         if(hasil7=="U"):
@@ -416,6 +427,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil7+"U"+" "
+                                                huruflarang+="U"+hasil7
                                 elif(m==8):
                                     if("D" in plugin):
                                         hasil8, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("D",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
@@ -428,6 +440,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil8+teks[m]+" "
+                                                huruflarang+=teks[m]+hasil8
                                     else:
                                         hasil8, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
                                         if(hasil8=="D"):
@@ -439,6 +452,7 @@ def alan_turing_plugin(teks):
                                                 break
                                             else:
                                                 plugin+=hasil8+"D"+" "
+                                                huruflarang+="D"+hasil8
                                 elif(m==9):
                                     if("O" in plugin):
                                         hasil9, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("O",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
@@ -491,8 +505,7 @@ def alan_turing_plugin(teks):
                     else:
                         nextrotor(right)
                     current_rotor = left[1][0]+mid[1][0]+right[1][0]
-                    if(hasilakhirbanget!=[]):
-                        break
+                    
                 if(hasilakhirbanget!=[]):
                     break
             if(hasilakhirbanget!=[]):
