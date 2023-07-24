@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import enigma
 
+
 window = tk.Tk()
 window.title("ENIGMA")
 allhuruf = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
@@ -39,13 +40,15 @@ def alan_turing():
     inputtext.config(state="disabled")
     hasilalan = enigma.alan_turing(getinput)
     hasil = ""
-    rincian = "Initial Position: " + hasilalan[0][0] + "\n"
-    rincian += "Rotor Left: " + hasilalan[0][1] + "\n"
-    rincian += "Rotor Middle: " + hasilalan[0][2] + "\n"
-    rincian += "Rotor Right: " + hasilalan[0][3] + "\n \n"
     if(hasilalan=="Error"):
         messagebox.showerror("Error", "Input tidak valid")
+    elif(hasilalan=="None"):
+        messagebox.showerror("Alert", "Tidak dapat menemukan kecocokan")
     else:
+        rincian = "Initial Position: " + hasilalan[0][0] + "\n"
+        rincian += "Rotor Left: " + hasilalan[0][1] + "\n"
+        rincian += "Rotor Middle: " + hasilalan[0][2] + "\n"
+        rincian += "Rotor Right: " + hasilalan[0][3] + "\n \n"
         if(hasilalan[0][1]=="1"):
             rotor1all = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
             notch1 = "Q"
@@ -361,7 +364,10 @@ def alan_turing_plugin():
     inputtext.delete("1.0", tk.END)
     inputtext.insert(tk.END, getinput + "\n")
     inputtext.config(state="disabled")
-    hasilalanplugin = enigma.alan_turing_plugin(getinput)
+    if(teliti.get()=="Tidak Teliti"):
+        hasilalanplugin = enigma.alan_turing_plugin(getinput)
+    else:
+        hasilalanplugin = enigma.alan_turing_plugin_teliti(getinput)
     if(hasilalanplugin=="None"):
         messagebox.showerror("Error", "Tidak dapat menemukan kecocokan")
     else:
@@ -517,9 +523,9 @@ outputtext = tk.Text(window, height=10, width=50, state="disabled", bg="white", 
 outputtext.grid(row=4, column=1)
 
 labelframe = tk.LabelFrame(window, text="Rincian", padx=10, pady=10, bg="#33FF99", fg="black", font=("Arial", 10))
-labelframe.grid(row=0, column=3, rowspan=8, padx=10, pady=10)
+labelframe.grid(row=0, column=3, rowspan=8, padx=10, pady=10,columnspan=2)
 textrincian = tk.Text(labelframe, height=30, width=60, state="disabled", bg="white", fg="black", font=("Arial", 10))
-textrincian.grid(row=0, column=3, rowspan=8, padx=10, pady=10)
+textrincian.grid(row=0, column=3, rowspan=8, padx=10, pady=10,columnspan=2)
 
 label5 = tk.Label(window, text="Left", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
 label5.grid(row=6, column=0)
@@ -564,6 +570,16 @@ huruf3 = tk.StringVar()
 huruf3.set("A")
 rotor3 = tk.OptionMenu(window, huruf3, *allhuruf)
 rotor3.grid(row=8, column=2)
+
+pilihteliti = tk.Label(window, text="Alan Turing Teliti/Tidak", padx=10, pady=5, bg="#33FF99", fg="black", font=("Arial", 10))
+pilihteliti.grid(row=8, column=3)
+
+telititidak = ["Teliti","Tidak Teliti"]
+teliti = tk.StringVar()
+teliti.set("Tidak Teliti")
+telitibut = tk.OptionMenu(window, teliti, *telititidak)
+telitibut.grid(row=8, column=4)
+
 
 
 window.mainloop()

@@ -197,7 +197,15 @@ def alan_turing(teks):
         return "None"
     else:
         return hasilakhirbanget
+def buangspasi(teks):
+    hasil = ""
+    for i in range(len(teks)):
+        if(teks[i]!=" "):
+            hasil+=teks[i]
+    return hasil
 def alan_turing_plugin(teks):
+    teks = buangspasi(teks)
+    cribs = "HELLOSUDO"
     listallhuruf = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     reflector = [list("YRUHQSLDPXNGOKMIEBFZCWVJAT"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
     jml = 0
@@ -205,8 +213,6 @@ def alan_turing_plugin(teks):
     for i in range(3):
         for j in range(3):
             for k in range(3):
-                if(i!=2 or j!=2 or k!=2):
-                    continue
                 jml+=1
                 if(i==0):
                     left = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
@@ -251,7 +257,7 @@ def alan_turing_plugin(teks):
                         rotor2 = copy.deepcopy(mid)
                         rotor3 = copy.deepcopy(right)
                         stop = False
-                        for m in range(10):
+                        for m in range(len(cribs)):
                             if(teks[m]==" "):
                                 continue
                             else:
@@ -274,13 +280,13 @@ def alan_turing_plugin(teks):
                                     break
                                 if(m==0):
                                     hasil0, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                    if(hasil0=="H"):
-                                        huruflarang+="H"
+                                    if(hasil0==cribs[m]):
+                                        huruflarang+=cribs[m]
                                     else:
-                                        plugin+=hasil0+"H"+" "
-                                elif(m==1):
-                                    if("E" in plugin):
-                                        hasil1, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("E",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
+                                        plugin+=hasil0+cribs[m]+" "
+                                elif(m>0 and m<len(cribs)-1):
+                                    if(cribs[m] in plugin):
+                                        hasil1, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(cribs[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
                                         if(hasil1==teks[m]):
                                             huruflarang+=teks[m]
                                         else:
@@ -293,169 +299,19 @@ def alan_turing_plugin(teks):
                                                 huruflarang+=teks[m]+hasil1
                                     else:
                                         hasil1, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil1=="E"):
-                                            huruflarang+="E"
+                                        if(hasil1==cribs[m]):
+                                            huruflarang+=cribs[m]
                                         else:
-                                            if(hasil1 in huruflarang or "E" in huruflarang):
+                                            if(hasil1 in huruflarang or cribs[m] in huruflarang):
                                                 huruflarang = ""
                                                 plugin = ''
                                                 break
                                             else:
-                                                plugin+=hasil1+"E"+" "
-                                                huruflarang+="E"+hasil1
-                                elif(m==2):
-                                    if("L" in plugin):
-                                        hasil2, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("L",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil2==teks[m]):
-                                            huruflarang+=teks[m]
-                                        else:
-                                            if(hasil2 in huruflarang or teks[m] in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil2+teks[m]+" "
-                                                huruflarang+=teks[m]+hasil2
-                                    else:
-                                        hasil2, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil2=="L"):
-                                            huruflarang+="L"
-                                        else:
-                                            if(hasil2 in huruflarang or "L" in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil2+"L"+" "
-                                                huruflarang+="L"+hasil2
-                                elif(m==3):
-                                    if("L" in plugin):
-                                        hasil3, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("L",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil3==teks[m]):
-                                            huruflarang+=teks[m]
-                                        else:
-                                            if(hasil3 in huruflarang or teks[m] in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil3+teks[m]+" "
-                                                huruflarang+=teks[m]+hasil3
-                                    else:
-                                        hasil3, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil3=="L"):
-                                            huruflarang+="L"
-                                        else:
-                                            if(hasil3 in huruflarang or "L" in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil3+"L"+" "
-                                                huruflarang+="L"+hasil3
-                                elif(m==4):
-                                    if("O" in plugin):
-                                        hasil4, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("O",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil4==teks[m]):
-                                            huruflarang+=teks[m]
-                                        else:
-                                            if(hasil4 in huruflarang or teks[m] in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil4+teks[m]+" "
-                                                huruflarang+=teks[m]+hasil4
-                                    else:
-                                        hasil4, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil4=="O"):
-                                            huruflarang+="O"
-                                        else:
-                                            if(hasil4 in huruflarang or "O" in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil4+"O"+" "
-                                                huruflarang+="O"+hasil4
-                                elif(m==6):
-                                    if("S" in plugin):
-                                        hasil6, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("S",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil6==teks[m]):
-                                            huruflarang+=teks[m]
-                                        else:
-                                            if(hasil6 in huruflarang or teks[m] in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil6+teks[m]+" "
-                                                huruflarang+=teks[m]+hasil6
-                                    else:
-                                        hasil6, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil6=="S"):
-                                            huruflarang+="S"
-                                        else:
-                                            if(hasil6 in huruflarang or "S" in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil6+"S"+" "
-                                                huruflarang+="S"+hasil6
-                                elif(m==7):
-                                    if("U" in plugin):
-                                        hasil7, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("U",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil7==teks[m]):
-                                            huruflarang+=teks[m]
-                                        else:
-                                            if(hasil7 in huruflarang or teks[m] in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil7+teks[m]+" "
-                                                huruflarang+=teks[m]+hasil7
-                                    else:
-                                        hasil7, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil7=="U"):
-                                            huruflarang+="U"
-                                        else:
-                                            if(hasil7 in huruflarang or "U" in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil7+"U"+" "
-                                                huruflarang+="U"+hasil7
-                                elif(m==8):
-                                    if("D" in plugin):
-                                        hasil8, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("D",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil8==teks[m]):
-                                            huruflarang+=teks[m]
-                                        else:
-                                            if(hasil8 in huruflarang or teks[m] in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil8+teks[m]+" "
-                                                huruflarang+=teks[m]+hasil8
-                                    else:
-                                        hasil8, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil8=="D"):
-                                            huruflarang+="D"
-                                        else:
-                                            if(hasil8 in huruflarang or "D" in huruflarang):
-                                                huruflarang = ""
-                                                plugin = ''
-                                                break
-                                            else:
-                                                plugin+=hasil8+"D"+" "
-                                                huruflarang+="D"+hasil8
-                                elif(m==9):
-                                    if("O" in plugin):
-                                        hasil9, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin("O",plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
+                                                plugin+=hasil1+cribs[m]+" "
+                                                huruflarang+=cribs[m]+hasil1
+                                elif(m==len(cribs)-1):
+                                    if(cribs[m] in plugin):
+                                        hasil9, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(cribs[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
                                         if(hasil9==teks[m]):
                                             huruflarang+=teks[m]
                                             stop = True
@@ -469,18 +325,17 @@ def alan_turing_plugin(teks):
                                                 stop = True
                                     else:
                                         hasil9, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
-                                        if(hasil9=="O"):
-                                            huruflarang+="O"
+                                        if(hasil9==cribs[m]):
+                                            huruflarang+=cribs[m]
                                             stop = True
                                         else:
-                                            if(hasil9 in huruflarang or "O" in huruflarang):
+                                            if(hasil9 in huruflarang or cribs[m] in huruflarang):
                                                 huruflarang = ""
                                                 plugin = ''
                                                 break
                                             else:
-                                                plugin+=hasil9+"O"+" "
+                                                plugin+=hasil9+cribs[m]+" "
                                                 stop = True
-                                
                                 if(makeplugin(plugin)=="Error"):
                                     break
                                 else:
@@ -505,7 +360,210 @@ def alan_turing_plugin(teks):
                     else:
                         nextrotor(right)
                     current_rotor = left[1][0]+mid[1][0]+right[1][0]
-                    
+                    # if(hasilakhirbanget!=[]):
+                    #     break
+                if(hasilakhirbanget!=[]):
+                    break
+            if(hasilakhirbanget!=[]):
+                break
+        if(hasilakhirbanget!=[]):
+            break
+    if(hasilakhirbanget==[]):
+        return "None"
+    else:
+        return hasilakhirbanget
+def alan_turing_plugin_teliti(teks):
+    teks = buangspasi(teks)
+    cribs = "HELLOSUDO"
+    listallhuruf = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    reflector = [list("YRUHQSLDPXNGOKMIEBFZCWVJAT"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+    jml = 0
+    hasilakhirbanget = []
+    for i in range(3):
+        for j in range(3):
+            for k in range(3):
+                jml+=1
+                if(i==0):
+                    left = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+                    notchleft = "Q"
+                elif(i==1):
+                    left = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+                    notchleft = "E"
+                elif(i==2):
+                    left = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+                    notchleft = "V"
+                if(j==0):
+                    mid =[list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")] 
+                    notchmid = "Q"
+                elif(j==1):
+                    mid = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+                    notchmid = "E"
+                elif(j==2):
+                    mid = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+                    notchmid = "V"
+                if(k==0):
+                    right = [list("EKMFLGDQVZNTOWYHXUSPAIBRCJ"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+                    notchright = "Q"
+                elif(k==1):
+                    right = [list("AJDKSIRUXBLHWTMCQGZNPYFVOE"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+                    notchright = "E"
+                elif(k==2):
+                    right = [list("BDFHJLCPRTXVZNYEIWGAKMUSQO"), list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")]
+                    notchright = "V"
+                awal = 0
+                current_rotor = "AAA"
+                plugin = ''
+                huruflarangawal = ''
+                
+                while(True):
+                    print(current_rotor)
+                    print(hasilakhirbanget)
+                    if(awal>1 and current_rotor=="AAA"):
+                        break
+                    huruflarang = ""
+                    rotor1awal = copy.deepcopy(left)
+                    rotor2awal = copy.deepcopy(mid)
+                    rotor3awal = copy.deepcopy(right)
+                    count = 0
+                    plugin = ''
+                    for z in range(len(cribs)):
+                        plugin = ''
+                        copysebelum1 = copy.deepcopy(rotor1awal)
+                        copysebelum2 = copy.deepcopy(rotor2awal)
+                        copysebelum3 = copy.deepcopy(rotor3awal)
+                        if(rotor2awal[1][0]==notchmid and rotor3awal[1][0]==notchright):
+                            nextrotor(rotor1awal)
+                            nextrotor(rotor2awal)
+                            nextrotor(rotor3awal)
+                        elif(rotor2awal[1][0]==notchmid):
+                            nextrotor(rotor1awal)
+                            nextrotor(rotor2awal)
+                            nextrotor(rotor3awal)
+                        elif(rotor3awal[1][0]==notchright):
+                            nextrotor(rotor3awal)
+                            nextrotor(rotor2awal)
+                        else:
+                            nextrotor(rotor3awal)
+                        hasilawal, r1,r2,r3,r4,r5,r6,r7 = enigma(cribs[z],listallhuruf,rotor3awal,rotor2awal,rotor1awal,reflector)
+                        if(hasilawal==teks[z]):
+                            huruflarangawal+=teks[z]+cribs[z]
+                            count+=1
+                        else:
+                            break
+                    if(count==len(cribs)):
+                        hasilakhirbanget.append([current_rotor,str(i+1),str(j+1),str(k+1),plugin])
+                        print("Masuk sini")
+                    else:
+                        plugin = ''
+                        for a in range(26):
+                            huruflarang = huruflarangawal
+                            plugin = ''
+                            rotor1 = copy.deepcopy(copysebelum1)
+                            rotor2 = copy.deepcopy(copysebelum2)
+                            rotor3 = copy.deepcopy(copysebelum3)
+                            stop = False
+                            for m in range(count,len(cribs)):
+                                if(teks[m]==" "):
+                                    continue
+                                else:
+                                    if(rotor2[1][0]==notchmid and rotor3[1][0]==notchright):
+                                        nextrotor(rotor1)
+                                        nextrotor(rotor2)
+                                        nextrotor(rotor3)
+                                    elif(rotor2[1][0]==notchmid):
+                                        nextrotor(rotor1)
+                                        nextrotor(rotor2)
+                                        nextrotor(rotor3)
+                                    elif(rotor3[1][0]==notchright):
+                                        nextrotor(rotor3)
+                                        nextrotor(rotor2)
+                                    else:
+                                        nextrotor(rotor3)
+                                    if(plugin==''):
+                                        plugin+=teks[m]+listallhuruf[a]+" "
+                                    if(makeplugin(plugin)=="Error"):
+                                        break
+                                    if(m==count):
+                                        hasil0, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
+                                        if(hasil0==cribs[m]):
+                                            huruflarang+=cribs[m]+teks[m]
+                                        else:
+                                            if(hasil0 in huruflarang or cribs[m] in huruflarang):
+                                                break
+                                            else:
+                                                plugin+=hasil0+cribs[m]+" "
+                                                huruflarang+=cribs[m]+hasil0+teks[m]
+                                    elif(m>count and m<len(cribs)-1):
+                                        if(cribs[m] in plugin):
+                                            hasil1, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(cribs[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
+                                            if(hasil1==teks[m]):
+                                                huruflarang+=teks[m]+cribs[m]
+                                            else:
+                                                if(hasil1 in huruflarang or teks[m] in huruflarang):
+                                                    break
+                                                else:
+                                                    plugin+=hasil1+teks[m]+" "
+                                                    huruflarang+=teks[m]+hasil1+cribs[m]
+                                        else:
+                                            hasil1, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
+                                            if(hasil1==cribs[m]):
+                                                huruflarang+=cribs[m]+teks[m]
+                                            else:
+                                                if(hasil1 in huruflarang or cribs[m] in huruflarang):
+                                                    break
+                                                else:
+                                                    plugin+=hasil1+cribs[m]+" "
+                                                    huruflarang+=cribs[m]+hasil1+teks[m]
+                                    elif(m==len(cribs)-1):
+                                        if(cribs[m] in plugin):
+                                            hasil9, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(cribs[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
+                                            if(hasil9==teks[m]):
+                                                huruflarang+=teks[m]+cribs[m]
+                                                stop = True
+                                            else:
+                                                if(hasil9 in huruflarang or teks[m] in huruflarang):
+                                                    break
+                                                else:
+                                                    plugin+=hasil9+teks[m]+" "
+                                                    stop = True
+                                        else:
+                                            hasil9, r11, r21, r31, rf, r32, r22, r12,pluginawal = enigma_plugin(teks[m],plugin,listallhuruf,rotor3,rotor2,rotor1,reflector)
+                                            if(hasil9==cribs[m]):
+                                                huruflarang+=cribs[m]+teks[m]
+                                                stop = True
+                                            else:
+                                                if(hasil9 in huruflarang or cribs[m] in huruflarang):
+                                                    break
+                                                else:
+                                                    plugin+=hasil9+cribs[m]+" "
+                                                    stop = True
+                                    
+                                    if(makeplugin(plugin)=="Error"):
+                                        break
+                                    else:
+                                        continue
+                            if(stop==True and makeplugin(plugin)!="Error"):
+                                hasilcuuy = [current_rotor,str(i+1),str(j+1),str(k+1),plugin]
+                                hasilakhirbanget.append(hasilcuuy)
+                            else:
+                                continue  
+                    awal+=1
+                    if(mid[1][0]==notchmid and right[1][0]==notchright):
+                        nextrotor(left)
+                        nextrotor(mid)
+                        nextrotor(right)
+                    elif(mid[1][0]==notchmid):
+                        nextrotor(left)
+                        nextrotor(mid)
+                        nextrotor(right)
+                    elif(right[1][0]==notchright):
+                        nextrotor(right)
+                        nextrotor(mid)
+                    else:
+                        nextrotor(right)
+                    current_rotor = left[1][0]+mid[1][0]+right[1][0]
+                    # if(hasilakhirbanget!=[]):
+                    #     break
                 if(hasilakhirbanget!=[]):
                     break
             if(hasilakhirbanget!=[]):
@@ -519,6 +577,9 @@ def alan_turing_plugin(teks):
 # start = time.time()
 # # coba = alan_turing("KQVHS IPCC")
 # coba= alan_turing_plugin("RCXPV NSWX")
+# coba2 = alan_turing_plugin_test("RCXPV NSWX")
+# print(coba)
+# print(coba2)
 # end = time.time()
 # print(coba)
 # print("Waktu eksekusi: ",end-start," detik")
